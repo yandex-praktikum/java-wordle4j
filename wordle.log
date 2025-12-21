@@ -1,0 +1,16 @@
+---Wordle started---
+Dictionary loaded: 4143 words (5 letters)
+ANSWER: донце
+Steps: 6
+Dictionary size: 4143
+Hint candidates: 4143
+Guess: бобок Pattern: -+--- StepsLeft: 5 Auto: true
+Hint candidates: 238
+Guess: голая Pattern: -+--- StepsLeft: 4 Auto: true
+Hint candidates: 96
+Guess: помин Pattern: -+--^ StepsLeft: 3 Auto: true
+Hint candidates: 9
+Guess: донец Pattern: +++^^ StepsLeft: 2 Auto: true
+Hint candidates: 1
+Guess: донце Pattern: +++++ StepsLeft: 1 Auto: true
+---Wordle finished---
