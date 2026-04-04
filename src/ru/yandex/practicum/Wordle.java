@@ -1,10 +1,13 @@
 package ru.yandex.practicum;
 
+import java.io.File;
+import java.util.Scanner;
+
 /*
 в главном классе нам нужно:
-    создать лог-файл (он должен передаваться во все классы)
-    создать загрузчик словарей WordleDictionaryLoader
-    загрузить словарь WordleDictionary с помощью класса WordleDictionaryLoader
+    создать лог-файл (он должен передаваться во все классы) ####
+    создать загрузчик словарей WordleDictionaryLoader ####
+    загрузить словарь WordleDictionary с помощью класса WordleDictionaryLoader ####
     затем создать игру WordleGame и передать ей словарь
     вызвать игровой метод в котором в цикле опрашивать пользователя и передавать информацию в игру
     вывести состояние игры и конечный результат
@@ -12,7 +15,87 @@ package ru.yandex.practicum;
 public class Wordle {
 
     public static void main(String[] args) {
+        //создать лог -файл(он должен передаваться во все классы) ####
 
+        //создать загрузчик словарей WordleDictionaryLoader ####
+        WordleDictionaryLoader loader = new WordleDictionaryLoader();
+        File file = new File("words_ru.txt");
+        loader.reader(file);
+        // загрузить словарь WordleDictionary с помощью класса WordleDictionaryLoader ####
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Игра");
+        while (true) {
+            menu();
+            String enter = sc.next();
+            switch (enter.trim().toLowerCase()) {
+                case "начать" -> runWordleGame();
+                case "сведения" -> aboutWordleGame();
+                case "выход" -> {
+                    exiteWordleGame();
+                    return;
+                }
+                default -> System.out.println("такого варианта нет. :( ");
+
+            }
+        }
+
+    }
+
+    public static void menu() {
+        StringBuilder mainSB = new StringBuilder();
+
+        mainSB.append("Введите, что вы хотите сделать:\n")
+                .append("-> Начать <- для запуска игры\n")
+                .append("-> Сведения <- чтобы узнать правила\n")
+                .append("-> Выход <- чтобы завершить игру");
+
+        System.out.println(mainSB.toString());
+    }
+
+    public static void runWordleGame() {
+    }
+
+    public static void aboutWordleGame() {
+        StringBuilder aboutSB = new StringBuilder();
+
+        aboutSB.append("===Правила игры===\n")
+                .append("За 6 попыток угадать слово.\n")
+                .append("Можно использовать только слова из библиотеки\n")
+                .append("-  им отмечается буква, которой НЕТ в загаданном слове\n")
+                .append("+ этим символом отмечается буква, которая находится на правильной позиции;\n")
+                .append("^ так отмечается буква, которая ЕСТЬ, но находится в другом месте.\n")
+                .append("===Управление===\n")
+                .append("клавиша ENTER в пустой строке -> подсказка от компьютера\n")
+                .append("напишите  Выход  -> завершает игру\n")
+                .append("-> Выход <- чтобы завершить игру");
+
+        System.out.println(aboutSB.toString());
+    }
+
+    public static void exiteWordleGame() {
+        System.out.println("Спасибо за игру <3");
+    }
+
+    // ######## Логика игры ########
+
+    public static String equalsLetter(String enterWord, String questWord){
+        StringBuilder grade = new StringBuilder();
+        String input = enterWord.toLowerCase();
+        String target = questWord.toLowerCase();
+
+        for (int i = 0; i < input.length(); i++) {
+            char e = input.charAt(i);
+
+            if (e == target.charAt(i)) {
+                grade.append("+");
+            } else if (target.contains(String.valueOf(e))) {
+                grade.append("^");
+            } else {
+                grade.append("-");
+            }
+        }
+        return grade.toString();
     }
 
 }
