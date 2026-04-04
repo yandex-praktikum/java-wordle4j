@@ -11,6 +11,11 @@ import java.util.List;
     на выходе должен быть класс WordleDictionary
  */
 public class WordleDictionaryLoader {
+   private File logFile; 
+
+    public WordleDictionaryLoader(File logFile) {
+        this.logFile = logFile;
+    }
     List<String> reader(File file)  {
         List<String> list = new ArrayList<>();
         try (FileReader reader = new FileReader(file);
@@ -29,7 +34,7 @@ public class WordleDictionaryLoader {
 
     private void saveLogError(Exception e) {
         String time = LocalDateTime.now().toString();
-        try (FileWriter writer = new FileWriter("error.log", true)) {
+        try (FileWriter writer = new FileWriter(logFile, true)) {
             writer.write(e + "\n");
             writer.write(time + "\n");
             writer.write(("=").repeat(20) + "\n");
