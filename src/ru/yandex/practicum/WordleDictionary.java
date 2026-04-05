@@ -9,15 +9,22 @@ import java.util.List;
  */
 public class WordleDictionary {
 
-    private List<String> words;
+    private Set<String> words;
 
-    public List<String> getWords() {
+    public Set<String> getWords() {
         return words;
     }
 
-    public WordleDictionary setWords(List<String> words) {
+    public WordleDictionary (Set<String> words) {
         this.words = words;
-        return this;
+    }
+
+    public boolean containsToDictionary(String word) {
+        if (word == null || words == null) {
+            return false;
+        }
+        // Используем toLowerCase(), чтобы проверка не зависела от регистра
+        return words.contains(word.toLowerCase());
     }
 
 

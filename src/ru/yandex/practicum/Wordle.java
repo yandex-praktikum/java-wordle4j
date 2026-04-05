@@ -8,22 +8,23 @@ import java.util.Scanner;
     создать лог-файл (он должен передаваться во все классы) ####
     создать загрузчик словарей WordleDictionaryLoader ####
     загрузить словарь WordleDictionary с помощью класса WordleDictionaryLoader ####
-    затем создать игру WordleGame и передать ей словарь
+    затем создать игру WordleGame и передать ей словарь 
     вызвать игровой метод в котором в цикле опрашивать пользователя и передавать информацию в игру
     вывести состояние игры и конечный результат
  */
 public class Wordle {
 
     public static void main(String[] args) {
-        //создать лог -файл(он должен передаваться во все классы) ####
-
-        //создать загрузчик словарей WordleDictionaryLoader ####
-        WordleDictionaryLoader loader = new WordleDictionaryLoader();
+        File commonLog = new File("error.log");
         File file = new File("words_ru.txt");
-        loader.reader(file);
-        // загрузить словарь WordleDictionary с помощью класса WordleDictionaryLoader ####
+
+        WordleDictionaryLoader loader = new WordleDictionaryLoader(file);
+        WordleDictionary dictionary = new WordleDictionary(loadedWords);
+
+        Set<String> loadedWords = new HashSet(dictionary.getWords(commonLog));
 
         Scanner sc = new Scanner(System.in);
+
         System.out.println("Игра");
         while (true) {
             menu();
@@ -54,6 +55,21 @@ public class Wordle {
     }
 
     public static void runWordleGame() {
+        int stepCount = 1; // начинаем с еденицы 
+        String enterWord;
+        String questWord = random(dictionary.getWords());
+
+        while (stepCount !>= 7){
+        System.out.println("Ход номер"+ stepCount +"напишите слово из 5 букв");
+        enterWord = sc.next();
+
+            if (dictionary.contains(enterWord)) {
+                 System.out.println(equalsLetter(enterWord,questWord));
+        } else {
+        System.out.println("Такого слова нет в словаре или оно не из 5 букв.");
+        }
+         if(){
+         stepcCount++;}
     }
 
     public static void aboutWordleGame() {
@@ -78,24 +94,26 @@ public class Wordle {
     }
 
     // ######## Логика игры ########
-
-    public static String equalsLetter(String enterWord, String questWord){
-        StringBuilder grade = new StringBuilder();
-        String input = enterWord.toLowerCase();
-        String target = questWord.toLowerCase();
-
-        for (int i = 0; i < input.length(); i++) {
-            char e = input.charAt(i);
-
-            if (e == target.charAt(i)) {
-                grade.append("+");
-            } else if (target.contains(String.valueOf(e))) {
-                grade.append("^");
-            } else {
-                grade.append("-");
-            }
-        }
-        return grade.toString();
-    }
+    /*
+    из трех компонентов
+    1) запуск
+        состоит из:
+        1)Игрок нажимает начать ==есть
+        2)игра запускает рандом 
+        3)игра ждет действия
+    2)игра
+        состоит из
+        1)игрок ввел слово
+        2)игра проверила слово (что оно есть в словаре)
+        3)игра сравнила и выдала ответ
+    3) результат
+        состоит из:
+        1)результата цикла - проиграл
+        2)или угадал - выграл
+        3) повторить
+         
+         
+    */
+    
 
 }

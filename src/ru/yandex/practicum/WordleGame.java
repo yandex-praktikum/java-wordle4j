@@ -14,10 +14,28 @@ package ru.yandex.practicum;
  */
 public class WordleGame {
 
-    private String answer;
+    /*private String answer;
 
     private int steps;
 
-    private WordleDictionary dictionary;
+    private WordleDictionary dictionary;*/
 
+public static String equalsLetter(String enterWord, String questWord){
+        StringBuilder grade = new StringBuilder();
+        String input = enterWord.toLowerCase();
+        String target = questWord.toLowerCase();
+
+        for (int i = 0; i < input.length(); i++) {
+            char e = input.charAt(i);
+
+            if (e == target.charAt(i)) {
+                grade.append("+");
+            } else if (target.contains(String.valueOf(e))) {
+                grade.append("^");
+            } else {
+                grade.append("-");
+            }
+        }
+        return grade.toString();
+    }
 }
