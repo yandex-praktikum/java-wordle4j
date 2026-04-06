@@ -12,6 +12,7 @@ import java.util.Scanner;
     вызвать игровой метод в котором в цикле опрашивать пользователя и передавать информацию в игру
     вывести состояние игры и конечный результат
  */
+//fjkh
 public class Wordle {
 
     public static void main(String[] args) {
