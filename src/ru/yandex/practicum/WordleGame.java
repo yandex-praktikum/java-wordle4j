@@ -1,5 +1,5 @@
 package ru.yandex.practicum;
-
+import java.util.*;
 /*
 в этом классе хранится словарь и состояние игры
     текущий шаг
@@ -14,28 +14,70 @@ package ru.yandex.practicum;
  */
 public class WordleGame {
 
-    /*private String answer;
+    private Set<Character> listOfChar = new HashSet<>();
+    private WordleDictionary dictionary;
 
-    private int steps;
+    public WordleGame(WordleDictionary dictionary) {
+        this.dictionary = dictionary;
+    }
 
-    private WordleDictionary dictionary;*/
+    private String promptUser(int step, Scanner sc) {
+        System.out.print("Ход " + step + ". Введи слово: ");
+        return sc.nextLine().toLowerCase();
+    }
 
-public static String equalsLetter(String enterWord, String questWord){
+    public void runWordleGame(Scanner sc) {
+
+        String targetWord = dictionary.getRandomWord();
+        int attempts = 1;
+
+        while (attempts <= 6) {
+
+            String enterWord = promptUser(attempts, sc);
+
+            if (enterWord.trim().equalsIgnoreCase("Выход")) {
+                return;
+            }
+
+            if (enterWord.isBlank()) {
+                enterWord = dictionary.getRandomWordIfEnter(listOfChar, targetWord);
+                System.out.println("Подсказка от игры: " + enterWord);
+            }
+
+            if (enterWord.equals(targetWord)) {
+                System.out.println("Вы угадали: " + enterWord);
+                return;
+            }
+
+            if (!dictionary.containsToDictionary(enterWord)) {
+                System.out.println("Такого слова в словаре нет, введите другое ");
+                continue;
+            }
+
+
+            equalsLetter(enterWord, targetWord);
+            attempts++;
+        }
+        System.out.println("Проиграл! Было слово: " + targetWord);
+    }
+
+    private void equalsLetter(String enterWord, String questWord){
         StringBuilder grade = new StringBuilder();
-        String input = enterWord.toLowerCase();
-        String target = questWord.toLowerCase();
 
-        for (int i = 0; i < input.length(); i++) {
-            char e = input.charAt(i);
+        for (int i = 0; i < enterWord.length(); i++) {
+            char e = enterWord.charAt(i);
 
-            if (e == target.charAt(i)) {
+            if (e == questWord.charAt(i)) {
                 grade.append("+");
-            } else if (target.contains(String.valueOf(e))) {
+                listOfChar.add(e);
+            } else if (questWord.contains(String.valueOf(e))) {
                 grade.append("^");
+                listOfChar.add(e);
             } else {
                 grade.append("-");
             }
         }
-        return grade.toString();
+        System.out.println(grade);
+
     }
 }

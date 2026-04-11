@@ -1,37 +1,35 @@
 package ru.yandex.practicum;
 
 import java.io.File;
-import java.util.Scanner;
+import java.util.*;
 
 /*
 в главном классе нам нужно:
     создать лог-файл (он должен передаваться во все классы) ####
     создать загрузчик словарей WordleDictionaryLoader ####
     загрузить словарь WordleDictionary с помощью класса WordleDictionaryLoader ####
-    затем создать игру WordleGame и передать ей словарь 
+    затем создать игру WordleGame и передать ей словарь
     вызвать игровой метод в котором в цикле опрашивать пользователя и передавать информацию в игру
     вывести состояние игры и конечный результат
  */
-//fjkh
 public class Wordle {
 
-    public static void main(String[] args) {
+    public static void  main(String[] args) {
         File commonLog = new File("error.log");
         File file = new File("words_ru.txt");
 
-        WordleDictionaryLoader loader = new WordleDictionaryLoader(file);
-        WordleDictionary dictionary = new WordleDictionary(loadedWords);
-
-        Set<String> loadedWords = new HashSet(dictionary.getWords(commonLog));
+        WordleDictionaryLoader loader = new WordleDictionaryLoader(commonLog);
+        WordleDictionary dictionary = loader.load(file);
+        WordleGame logicOfGame = new WordleGame(dictionary);
 
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Игра");
         while (true) {
             menu();
-            String enter = sc.next();
+            String enter = sc.nextLine();
             switch (enter.trim().toLowerCase()) {
-                case "начать" -> runWordleGame();
+                case "начать" -> startWordlGame(logicOfGame, sc);
                 case "сведения" -> aboutWordleGame();
                 case "выход" -> {
                     exiteWordleGame();
@@ -44,7 +42,7 @@ public class Wordle {
 
     }
 
-    public static void menu() {
+    private static void menu() {
         StringBuilder mainSB = new StringBuilder();
 
         mainSB.append("Введите, что вы хотите сделать:\n")
@@ -52,28 +50,14 @@ public class Wordle {
                 .append("-> Сведения <- чтобы узнать правила\n")
                 .append("-> Выход <- чтобы завершить игру");
 
-        System.out.println(mainSB.toString());
+        System.out.println(mainSB);
     }
 
-    public static void runWordleGame() {
-        int stepCount = 1; // начинаем с еденицы 
-        String enterWord;
-        String questWord = random(dictionary.getWords());
-
-        while (stepCount !>= 7){
-        System.out.println("Ход номер"+ stepCount +"напишите слово из 5 букв");
-        enterWord = sc.next();
-
-            if (dictionary.contains(enterWord)) {
-                 System.out.println(equalsLetter(enterWord,questWord));
-        } else {
-        System.out.println("Такого слова нет в словаре или оно не из 5 букв.");
-        }
-         if(){
-         stepcCount++;}
+    private static void startWordlGame(WordleGame logicOfGame, Scanner sc) {
+        logicOfGame.runWordleGame(sc);
     }
 
-    public static void aboutWordleGame() {
+    private static void aboutWordleGame() {
         StringBuilder aboutSB = new StringBuilder();
 
         aboutSB.append("===Правила игры===\n")
@@ -85,36 +69,13 @@ public class Wordle {
                 .append("===Управление===\n")
                 .append("клавиша ENTER в пустой строке -> подсказка от компьютера\n")
                 .append("напишите  Выход  -> завершает игру\n")
-                .append("-> Выход <- чтобы завершить игру");
+                .append("\n");
 
-        System.out.println(aboutSB.toString());
+        System.out.println(aboutSB);
     }
 
-    public static void exiteWordleGame() {
+    private static void exiteWordleGame() {
         System.out.println("Спасибо за игру <3");
     }
-
-    // ######## Логика игры ########
-    /*
-    из трех компонентов
-    1) запуск
-        состоит из:
-        1)Игрок нажимает начать ==есть
-        2)игра запускает рандом 
-        3)игра ждет действия
-    2)игра
-        состоит из
-        1)игрок ввел слово
-        2)игра проверила слово (что оно есть в словаре)
-        3)игра сравнила и выдала ответ
-    3) результат
-        состоит из:
-        1)результата цикла - проиграл
-        2)или угадал - выграл
-        3) повторить
-         
-         
-    */
-    
-
 }
+
