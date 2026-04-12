@@ -16,6 +16,19 @@ public class WordleGame {
 
     private Set<Character> listOfChar = new HashSet<>();
     private WordleDictionary dictionary;
+    private int attempts = 1;
+    private String targetWord;
+    private String enterWord;
+    
+    public int getAttempts() {
+        return attempts;
+    }
+    public String getTargetWord() {
+        return targetWord;
+    }
+    public String getEnterWord() {
+        return enterWord;
+    }
 
     public WordleGame(WordleDictionary dictionary) {
         this.dictionary = dictionary;
@@ -28,12 +41,12 @@ public class WordleGame {
 
     public void runWordleGame(Scanner sc) {
 
-        String targetWord = dictionary.getRandomWord();
-        int attempts = 1;
+        targetWord = dictionary.getRandomWord();
+       
 
         while (attempts <= 6) {
 
-            String enterWord = promptUser(attempts, sc);
+            enterWord = promptUser(attempts, sc);
 
             if (enterWord.trim().equalsIgnoreCase("Выход")) {
                 return;

@@ -30,9 +30,9 @@ public class Wordle {
             String enter = sc.nextLine();
             switch (enter.trim().toLowerCase()) {
                 case "начать" -> startWordlGame(logicOfGame, sc);
-                case "сведения" -> aboutWordleGame();
+                case "сведения" -> System.out.println(aboutWordleGame());
                 case "выход" -> {
-                    exiteWordleGame();
+                    System.out.println(exiteWordleGame());
                     return;
                 }
                 default -> System.out.println("такого варианта нет. :( ");
@@ -53,11 +53,11 @@ public class Wordle {
         System.out.println(mainSB);
     }
 
-    private static void startWordlGame(WordleGame logicOfGame, Scanner sc) {
+    public static void startWordlGame(WordleGame logicOfGame, Scanner sc) {
         logicOfGame.runWordleGame(sc);
     }
 
-    private static void aboutWordleGame() {
+    public static String aboutWordleGame() {
         StringBuilder aboutSB = new StringBuilder();
 
         aboutSB.append("===Правила игры===\n")
@@ -70,12 +70,12 @@ public class Wordle {
                 .append("клавиша ENTER в пустой строке -> подсказка от компьютера\n")
                 .append("напишите  Выход  -> завершает игру\n")
                 .append("\n");
+        return aboutSB.toString();    
 
-        System.out.println(aboutSB);
     }
 
-    private static void exiteWordleGame() {
-        System.out.println("Спасибо за игру <3");
+    public static String exiteWordleGame() {
+        return "Спасибо за игру <3";
     }
 }
 
