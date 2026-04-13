@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class Wordle {
 
-    public static void  main(String[] args) {
+    public static void main(String[] args) {
         File commonLog = new File("error.log");
         File file = new File("words_ru.txt");
 
@@ -70,7 +70,7 @@ public class Wordle {
                 .append("клавиша ENTER в пустой строке -> подсказка от компьютера\n")
                 .append("напишите  Выход  -> завершает игру\n")
                 .append("\n");
-        return aboutSB.toString();    
+        return aboutSB.toString();
 
     }
 

@@ -33,7 +33,7 @@ public class WordleDictionary {
         while (randomWord.equals(targetWord)) {
             randomWord = getRandomWord();
         }
-        if(listOfChar == null) {
+        if (listOfChar == null) {
             return randomWord;
         }
         for (String word : words) {

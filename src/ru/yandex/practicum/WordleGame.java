@@ -1,5 +1,7 @@
 package ru.yandex.practicum;
+
 import java.util.*;
+
 /*
 в этом классе хранится словарь и состояние игры
     текущий шаг
@@ -19,13 +21,15 @@ public class WordleGame {
     private int attempts = 1;
     private String targetWord;
     private String enterWord;
-    
+
     public int getAttempts() {
         return attempts;
     }
+
     public String getTargetWord() {
         return targetWord;
     }
+
     public String getEnterWord() {
         return enterWord;
     }
@@ -42,7 +46,7 @@ public class WordleGame {
     public void runWordleGame(Scanner sc) {
 
         targetWord = dictionary.getRandomWord();
-       
+
 
         while (attempts <= 6) {
 
@@ -74,7 +78,7 @@ public class WordleGame {
         System.out.println("Проиграл! Было слово: " + targetWord);
     }
 
-    private void equalsLetter(String enterWord, String questWord){
+    private void equalsLetter(String enterWord, String questWord) {
         StringBuilder grade = new StringBuilder();
 
         for (int i = 0; i < enterWord.length(); i++) {
