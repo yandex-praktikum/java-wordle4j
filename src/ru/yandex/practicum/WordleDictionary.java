@@ -11,4 +11,23 @@ public class WordleDictionary {
 
     private List<String> words;
 
+
+    public WordleDictionary(List<String> words) {
+        this.words = words;
+    }
+
+    public List<String> getWords() {
+        return words;
+    }
+
+    public int size() {
+        return words.size();
+    }
+    public String getWord(int index) {
+        return words.get(index);
+    }
+
+    public boolean containsWord(String word) {
+        return words.contains(word);
+    }
 }
